@@ -37,7 +37,7 @@ The switch is in the top right. Your choice is remembered; if you have not
 chosen, it follows whatever your phone or laptop is set to.
 
 All the colours are CSS custom properties declared once at the top of
-. The dark theme only redeclares those few values — no other rule
+`style.css`. The dark theme only redeclares those few values — no other rule
 knows which theme is on, which is why the switcher is about ten lines of
 JavaScript rather than a second stylesheet.
 
