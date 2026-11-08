@@ -1,28 +1,60 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Money Tracker</title>
     <meta name="description" content="A simple money tracker. Saves to this browser." />
+    <meta name="theme-color" content="#2a5bd7" />
     <link rel="stylesheet" href="style.css" />
+
+    <!--
+      Set the theme before the page paints, otherwise a dark-mode user gets a
+      white flash on every load. It has to be inline and here, above the body,
+      because anything in script.js runs too late to prevent that.
+    -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("spending.theme");
+          var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+        } catch (e) {
+          /* Private mode can refuse storage. Light is a safe place to land. */
+        }
+      })();
+    </script>
   </head>
   <body>
     <main class="wrap">
       <header class="head">
-        <h1>Money tracker</h1>
+        <div class="head-row">
+          <h1>Money tracker</h1>
+          <button class="theme" id="theme" type="button" aria-pressed="false" aria-label="Switch to dark mode">
+            <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="4.2" />
+              <g class="rays">
+                <path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9" />
+              </g>
+            </svg>
+            <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2z" />
+            </svg>
+          </button>
+        </div>
         <p class="count" id="count">0 entries</p>
         <p class="total" id="total"></p>
       </header>
 
-      <!-- One form does both adding and editing. Editing fills this form and
-           changes the button, so there is only ever one place to type. -->
+      <!-- One form does both adding and editing. When you edit, the form fills
+           with that item and the button changes, so there is only ever one
+           place to type. -->
       <form class="card form" id="form" autocomplete="off">
         <h2 class="form-title" id="form-title">Add an entry</h2>
 
         <div class="field">
           <label for="what">What you spent it on</label>
-          <input id="what" name="what" type="text" required maxlength="60" placeholder="e.g. Transport" />
+          <input id="what" name="what" type="text" required maxlength="80" placeholder="e.g. Transport" />
         </div>
 
         <div class="row">

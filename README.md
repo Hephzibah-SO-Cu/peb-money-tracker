@@ -16,6 +16,7 @@ JavaScript in three files, no backend.
 - The number of entries and the total spent at the top
 - A friendly message when the list is empty
 - Works on a phone
+- Light and dark mode, remembered between visits
 
 ## Where the data lives
 
@@ -29,6 +30,16 @@ In this browser, in `localStorage`. That means:
 
 Open `index.html`, or use **Go Live** in your editor. There is nothing to
 install and nothing to build.
+
+## Light and dark
+
+The switch is in the top right. Your choice is remembered; if you have not
+chosen, it follows whatever your phone or laptop is set to.
+
+All the colours are CSS custom properties declared once at the top of
+. The dark theme only redeclares those few values — no other rule
+knows which theme is on, which is why the switcher is about ten lines of
+JavaScript rather than a second stylesheet.
 
 ## The files
 
