@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Money Tracker</title>
+    <meta name="description" content="A simple money tracker. Saves to this browser." />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="head">
+        <h1>Money tracker</h1>
+        <p class="count" id="count">0 entries</p>
+        <p class="total" id="total"></p>
+      </header>
+
+      <!-- One form does both adding and editing. Editing fills this form and
+           changes the button, so there is only ever one place to type. -->
+      <form class="card form" id="form" autocomplete="off">
+        <h2 class="form-title" id="form-title">Add an entry</h2>
+
+        <div class="field">
+          <label for="what">What you spent it on</label>
+          <input id="what" name="what" type="text" required maxlength="60" placeholder="e.g. Transport" />
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="amount">How much (&#8358;)</label>
+            <input id="amount" name="amount" type="number" required min="0" step="0.01" inputmode="decimal" placeholder="3500" />
+          </div>
+          <div class="field">
+            <label for="date">Date</label>
+            <input id="date" name="date" type="date" required />
+          </div>
+        </div>
+
+        <p class="error" id="error" role="alert" hidden></p>
+
+        <div class="actions">
+          <button class="btn primary" type="submit" id="submit">Add entry</button>
+          <button class="btn ghost" type="button" id="cancel" hidden>Cancel</button>
+        </div>
+      </form>
+
+      <div class="field search">
+        <label for="search">Search</label>
+        <input id="search" type="search" placeholder="Search what you spent on" />
+      </div>
+
+      <!-- aria-live so a screen reader hears the list change after an add,
+           edit or delete, instead of silence. -->
+      <ul class="list" id="list" aria-live="polite"></ul>
+
+      <p class="empty" id="empty" hidden></p>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

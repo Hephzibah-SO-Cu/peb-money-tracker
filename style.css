@@ -1,0 +1,254 @@
+/* Money tracker — one small stylesheet, mobile first.
+   Everything scales up from a phone; the only layout change is that the
+   amount and date sit side by side once there is room. */
+
+:root {
+  --ink: #16241d;
+  --ink-soft: #5d6b64;
+  --line: #e2e7e4;
+  --surface: #ffffff;
+  --page: #f5f7f6;
+  --accent: #2a5bd7;
+  --accent-dark: #1f47a8;
+  --danger: #b3261e;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px 16px 56px;
+  background: var(--page);
+  color: var(--ink);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.wrap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ---- header ---- */
+.head {
+  margin-bottom: 20px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+}
+
+.count {
+  margin: 4px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* A money tracker that does not show what you have spent is not much use,
+   so the total sits under the count. */
+.total {
+  margin: 2px 0 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ---- cards and the form ---- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+.form-title {
+  margin: 0 0 12px;
+  font-size: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+input {
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  width: 100%;
+}
+
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+/* Price and quantity are short, so they pair up when the screen allows. */
+.row {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 420px) {
+  .row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.error {
+  margin: 0 0 12px;
+  color: var(--danger);
+  font-size: 0.88rem;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ---- buttons: 44px tall so they are comfortable on a phone ---- */
+.btn {
+  font: inherit;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.primary:hover {
+  background: var(--accent-dark);
+}
+
+.ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.ghost:hover {
+  background: var(--page);
+}
+
+.search {
+  margin-bottom: 16px;
+}
+
+/* ---- the list ---- */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-main {
+  flex: 1 1 60%;
+  min-width: 0;
+}
+
+.item-name {
+  font-weight: 600;
+  /* A long item name wraps rather than pushing the buttons off a phone. */
+  overflow-wrap: anywhere;
+}
+
+.item-meta {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.item-actions {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.link {
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.88rem;
+  min-height: 36px;
+  padding: 0 10px;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.link:hover {
+  background: var(--page);
+}
+
+.link.danger {
+  color: var(--danger);
+  border-color: #f0d6d4;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* The row being edited is marked, so it is obvious what the form is acting on. */
+.item.editing {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+/* ---- empty state ---- */
+.empty {
+  margin: 24px 0 0;
+  padding: 28px 16px;
+  text-align: center;
+  color: var(--ink-soft);
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+}
