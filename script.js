@@ -76,6 +76,17 @@ function clearError() {
   errorEl.textContent = "";
 }
 
+/** An id for a new row.
+ *  crypto.randomUUID() needs a secure context and Safari before 15.4 does not
+ *  have it at all, so this falls back rather than throwing on someone's older
+ *  phone. The id only has to be unique within one browser's list. */
+function newId() {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return `id-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
 /* ---------- rendering --------------------------------------------------- */
 
 function render() {
@@ -163,7 +174,7 @@ form.addEventListener("submit", (e) => {
     entries = entries.map((en) => (en.id === editingId ? { ...en, what, amount, date } : en));
     stopEdit();
   } else {
-    entries.unshift({ id: crypto.randomUUID(), what, amount, date });
+    entries.unshift({ id: newId(), what, amount, date });
     form.reset();
   }
 
